@@ -130,7 +130,7 @@ autocmd Filetype python set foldmethod=indent
 autocmd Filetype python set foldlevel=99
 
 " plug - nerdtree
-nnoremap <F3> :NERDTreeToggle<CR>
+nnoremap <TAB> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let NERDTreeWinSize=32
 let NERDTreeShowHidden=1
@@ -403,7 +403,7 @@ let g:indent_guides_guide_size=1
 ":nmap <slient> <Leader>i <Plug>IndentGuidesToggle
 
 " Plug - TagBar
-nmap <F8> :TagbarToggle<CR>
+nmap <S-Tab> :TagbarToggle<CR>
 let g:tagbar_compact=1
 
 " Plug - jupyter-vim
