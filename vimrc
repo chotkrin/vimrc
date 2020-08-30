@@ -72,17 +72,17 @@ map tp : r !scs.sh -s /home/komikun/Pictures/screenshoots/<CR>
 call plug#begin('~/.vim/plugged')
 
 " themes
-Plug 'ajmwagar/vim-deus'
-Plug 'morhetz/gruvbox'
-Plug 'connorholyday/vim-snazzy'
+"Plug 'ajmwagar/vim-deus'
+"Plug 'morhetz/gruvbox'
+"Plug 'connorholyday/vim-snazzy'
 Plug 'franbach/miramare'
 
-   
+
 
 " beautify
 Plug 'vim-airline/vim-airline'
 Plug 'kien/rainbow_parentheses.vim'
-Plug 'vim-airline/vim-airline-themes'
+"Plug 'vim-airline/vim-airline-themes'
 
 
 " additional functions
@@ -92,10 +92,10 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'Valloric/YouCompleteMe'                                             " auto complete
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } } " preview markdown
 Plug 'mzlogin/vim-markdown-toc'                                           " highlight markdown
-Plug 'SirVer/ultisnips'                                                   " complete snips
-Plug 'honza/vim-snippets'
+"Plug 'SirVer/ultisnips'                                                   " complete snips
+"Plug 'honza/vim-snippets'
 Plug 'flazz/vim-colorschemes'
-Plug 'preservim/nerdcommenter' " quickly  (un)comment
+Plug 'preservim/nerdcommenter'												" quickly  (un)comment
 Plug 'Chiel92/vim-autoformat'
 "Plug 'w0rp/ale'
 Plug 'nathanaelkane/vim-indent-guides'
@@ -107,9 +107,9 @@ Plug 'mbbill/undotree'
 Plug 'hisaknown/jupyterkernel.vim'
 call plug#end()
 " Reopen
-if has("autocmd")                                                          
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif                                                        
-endif 
+if has("autocmd")
+	au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
 
 "plug - undotree
 
@@ -152,8 +152,8 @@ func! CompileRunGcc()
 	elseif &filetype == 'sh'
 		:!time bash %
 	elseif &filetype == 'python'
-        "exec  "!clear"
-        "exec  "!time python3 %"
+		"exec  "!clear"
+		"exec  "!time python3 %"
 		exec "set splitbelow"
 		exec ":term python3 %"
 	elseif &filetype == 'html'
@@ -210,10 +210,10 @@ nmap <Leader>at :ALEToggle<CR>
 nmap <Leader>ad :ALEDetail<CR>
 "使用clang对c和c++进行语法检查，对python使用pylint进行语法检查
 let g:ale_linters = {
-\   'c++': ['clang'],
-\   'c': ['clang'],
-\   'python': ['pylint'],
-\}
+			\   'c++': ['clang'],
+			\   'c': ['clang'],
+			\   'python': ['pylint'],
+			\}
 " }}}
 let g:ale_fix_on_save = 1
 let g:ale_completion_enabled = 1
@@ -245,12 +245,12 @@ nnoremap <Leader>jd :YcmCompleter GoToDefinition<CR>
 " Plug - markdown-preview
 " set to 1, nvim will open the preview window after entering the markdown buffer
 " default: 0
-let g:mkdp_auto_start = 0 
+let g:mkdp_auto_start = 0
 
 " set to 1, the nvim will auto close current preview window when change
 " from markdown buffer to another buffer
 " default: 1
-let g:mkdp_auto_close = 0 
+let g:mkdp_auto_close = 0
 
 " set to 1, the vim will refresh markdown when save the buffer or
 " leave from insert mode, default 0 is auto refresh markdown as you edit or
@@ -261,7 +261,7 @@ let g:mkdp_refresh_slow = 0
 " set to 1, the MarkdownPreview command ckkfan be use for all files,
 " by default it can be use in markdown file
 " default: 0
-let g:mkdp_command_for_global = 1 
+let g:mkdp_command_for_global = 1
 
 " set to 1, preview server available to others in your network
 " by default, the server listens on localhost (127.0.0.1)
@@ -331,13 +331,13 @@ let g:mkdp_page_title = '${name}'
 
 " plug - ultisnips
 "设置tab键为触发键
-let g:UltiSnipsExpandTrigger = '<c-j>'
-"设置向后跳转键
-let g:UltiSnipsJumpForwardTrigger = '<c-k>'
-"设置向前跳转键
-let g:UltiSnipsJumpBackwardTrigger = '<c-h>'
-"设置打开配置文件时为垂直打开
-let g:UltiSnipsEditSplit="vertical"
+"let g:UltiSnipsExpandTrigger = '<c-j>'
+""设置向后跳转键
+"let g:UltiSnipsJumpForwardTrigger = '<c-k>'
+""设置向前跳转键
+"let g:UltiSnipsJumpBackwardTrigger = '<c-h>'
+""设置打开配置文件时为垂直打开
+"let g:UltiSnipsEditSplit="vertical"
 
 " setting - ranger
 
@@ -374,9 +374,9 @@ nnoremap <leader>r :<c-u>RangerChooser<CR>
 "set statusline+=%{SyntasticStatuslineFlag()}
 "set statusline+=%*
 
-"let g:syntastic_always_populate_loc_list = 0 
-"let g:syntastic_auto_loc_list = 1 
-"let g:syntastic_check_on_open = 0 
+"let g:syntastic_always_populate_loc_list = 0
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 0
 "let g:syntastic_check_on_wq = 0
 "let g:syntastic_enable_signs = 1
 "let g:syntastic_error_symbol = '✗'
@@ -388,7 +388,7 @@ nnoremap <leader>r :<c-u>RangerChooser<CR>
 noremap <F6> :Autoformat<CR>
 au BufWrite * :Autoformat
 
-let g:autoformat_autoindent = 0 
+let g:autoformat_autoindent = 0
 let g:autoformat_retab = 0
 let g:autoformat_remove_trailing_spaces = 0
 
@@ -438,7 +438,7 @@ autocmd Filetype markdown inoremap <buffer> ,s ~~~~ <++><Esc>F~hi
 autocmd Filetype markdown inoremap <buffer> ,i ** <++><Esc>F*i
 autocmd Filetype markdown inoremap <buffer> ,d `` <++><Esc>F`i
 autocmd Filetype markdown inoremap <buffer> ,c ```<Enter><++><Enter>```<Enter><Enter><++><Esc>4kA
-autocmd Filetype markdown inoremap <buffer> ,m - [ ] 
+autocmd Filetype markdown inoremap <buffer> ,m - [ ]
 autocmd Filetype markdown inoremap <buffer> ,p ![](<++>) <++><Esc>F[a
 autocmd Filetype markdown inoremap <buffer> ,a [](<++>) <++><Esc>F[a
 autocmd Filetype markdown inoremap <buffer> ,1 #<Space><Enter><++><Esc>kA
@@ -461,18 +461,26 @@ let &t_SI.="\e[5 q" "SI = INSERT mode
 let &t_SR.="\e[4 q" "SR = REPLACE mode
 let &t_EI.="\e[1 q" "EI = NORMAL mode (ELSE)
 " plug - Coc
+
+let g:coc_global_extensions = ['coc-json', 'coc-vimlsp', 'coc-python', 'coc-pyright', 'coc-html']
+
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
+set updatetime=100
+
+set shortmess+=c
+
+
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+			\ pumvisible() ? "\<C-n>" :
+			\ <SID>check_back_space() ? "\<TAB>" :
+			\ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+	let col = col('.') - 1
+	return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 " Use `[g` and `]g` to navigate diagnostics
@@ -480,18 +488,39 @@ endfunction
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
+nmap <leader>rn <Plug>(coc-rename)
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
-
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
+	if (index(['vim','help'], &filetype) >= 0)
+		execute 'h '.expand('<cword>')
+	else
+		call CocAction('doHover')
+	endif
 endfunction
-
-
 " Symbol renaming.
 nmap <leader>n <Plug>(coc-rename)
 
+" Use <C-l> for trigger snippet expand.
+imap <C-j> <Plug>(coc-snippets-expand)
+
+" Use <C-j> for select text for visual placeholder of snippet.
+"vmap <C-j> <Plug>(coc-snippets-select)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-k>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-h>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+"imap <C-j> <Plug>(coc-snippets-expand-jump)
