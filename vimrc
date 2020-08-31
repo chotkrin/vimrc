@@ -462,7 +462,7 @@ let &t_SR.="\e[4 q" "SR = REPLACE mode
 let &t_EI.="\e[1 q" "EI = NORMAL mode (ELSE)
 " plug - Coc
 
-let g:coc_global_extensions = ['coc-json', 'coc-vimlsp', 'coc-python', 'coc-pyright', 'coc-html']
+let g:coc_global_extensions = ['coc-json', 'coc-vimlsp', 'coc-python', 'coc-pyright', 'coc-html', 'coc-marketplace', 'coc-snippets']
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
