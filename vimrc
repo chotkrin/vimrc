@@ -92,8 +92,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'Valloric/YouCompleteMe'                                             " auto complete
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } } " preview markdown
 Plug 'mzlogin/vim-markdown-toc'                                           " highlight markdown
-"Plug 'SirVer/ultisnips'                                                   " complete snips
-"Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'                                                   " complete snips
+Plug 'honza/vim-snippets'
 Plug 'flazz/vim-colorschemes'
 Plug 'preservim/nerdcommenter'												" quickly  (un)comment
 Plug 'Chiel92/vim-autoformat'
@@ -161,6 +161,9 @@ func! CompileRunGcc()
 	elseif &filetype == 'go'
 		exec "!go build %<"
 		exec "!time go run %"
+	elseif &filetype == 'scala'
+		exec "!scalac %"
+		exec "!time scala %<"
 	endif
 endfunc
 
@@ -266,13 +269,13 @@ let g:mkdp_command_for_global = 1
 " set to 1, preview server available to others in your network
 " by default, the server listens on localhost (127.0.0.1)
 " default: 0
-let g:mkdp_open_to_the_world = 0
+let g:mkdp_open_to_the_world = 1 
 
 " use custom IP to open preview page
 " useful when you work in remote vim and preview on local browser
 " more detail see: https://github.com/iamcco/markdown-preview.nvim/pull/9
 " default empty
-let g:mkdp_open_ip = ''
+let g:mkdp_open_ip = '127.0.0.1'
 
 " specify browser to open preview page
 " default: ''
@@ -282,10 +285,14 @@ let g:mkdp_browser = ''
 " default is 0
 let g:mkdp_echo_preview_url = 0
 
+
 " a custom vim function name to open preview page
 " this function will receive url as param
 " default is empty
-let g:mkdp_browserfunc = ''
+function! g:EchoUrl(url)
+	:echo a:url
+endfunction
+let g:mkdp_browserfunc = 'g:EchoUrl'
 
 " options for markdown render
 " mkit: markdown-it options for render
@@ -322,7 +329,7 @@ nnoremap M :MarkdownPreview<CR>
 let g:mkdp_highlight_css = ''
 
 " use a custom port to start server or random for empty
-let g:mkdp_port = ''
+let g:mkdp_port = '8080'
 
 " plug - markdown preview page title
 " ${name} will be replace with the file name
@@ -331,13 +338,13 @@ let g:mkdp_page_title = '${name}'
 
 " plug - ultisnips
 "设置tab键为触发键
-"let g:UltiSnipsExpandTrigger = '<c-j>'
-""设置向后跳转键
-"let g:UltiSnipsJumpForwardTrigger = '<c-k>'
-""设置向前跳转键
-"let g:UltiSnipsJumpBackwardTrigger = '<c-h>'
-""设置打开配置文件时为垂直打开
-"let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsExpandTrigger = '<c-j>'
+"设置向后跳转键
+let g:UltiSnipsJumpForwardTrigger = '<c-k>'
+"设置向前跳转键
+let g:UltiSnipsJumpBackwardTrigger = '<c-h>'
+"设置打开配置文件时为垂直打开
+let g:UltiSnipsEditSplit="vertical"
 
 " setting - ranger
 
@@ -386,7 +393,6 @@ nnoremap <leader>r :<c-u>RangerChooser<CR>
 
 " plug - autoformat
 noremap <F6> :Autoformat<CR>
-au BufWrite * :Autoformat
 
 let g:autoformat_autoindent = 0
 let g:autoformat_retab = 0
@@ -462,7 +468,7 @@ let &t_SR.="\e[4 q" "SR = REPLACE mode
 let &t_EI.="\e[1 q" "EI = NORMAL mode (ELSE)
 " plug - Coc
 
-let g:coc_global_extensions = ['coc-json', 'coc-vimlsp', 'coc-python', 'coc-pyright', 'coc-html', 'coc-marketplace', 'coc-snippets']
+let g:coc_global_extensions = ['coc-json', 'coc-vimlsp', 'coc-python',  'coc-html', 'coc-marketplace', 'coc-snippets']
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
