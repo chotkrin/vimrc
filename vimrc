@@ -19,6 +19,7 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 
+set nofoldenable
 
 set completeopt=noinsert
 set smartindent
@@ -102,9 +103,13 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'kshenoy/vim-signature'
 Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'nsf/gocode', {'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh'}
 "python
 "jupyter
 Plug 'hisaknown/jupyterkernel.vim'
+Plug 'diepm/vim-rest-console'
+Plug 'lilydjwg/colorizer'
 call plug#end()
 " Reopen
 if has("autocmd")
@@ -159,8 +164,10 @@ func! CompileRunGcc()
 	elseif &filetype == 'html'
 		exec "!chromium % &"
 	elseif &filetype == 'go'
-		exec "!go build %<"
-		exec "!time go run %"
+		"exec "!clear"
+		"exec ":GoRun"
+		exec "set splitbelow"
+		exec ":term go run %"
 	elseif &filetype == 'scala'
 		exec "!scalac %"
 		exec "!time scala %<"
@@ -468,7 +475,7 @@ let &t_SR.="\e[4 q" "SR = REPLACE mode
 let &t_EI.="\e[1 q" "EI = NORMAL mode (ELSE)
 " plug - Coc
 
-let g:coc_global_extensions = ['coc-json', 'coc-vimlsp', 'coc-python',  'coc-html', 'coc-marketplace', 'coc-snippets']
+let g:coc_global_extensions = ['coc-sql', 'coc-go', 'coc-tsserver', 'coc-json', 'coc-vimlsp', 'coc-python',  'coc-html', 'coc-marketplace', 'coc-snippets']
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -530,3 +537,7 @@ let g:coc_snippet_prev = '<c-h>'
 
 " Use <C-j> for both expand and jump (make expand higher priority.)
 "imap <C-j> <Plug>(coc-snippets-expand-jump)
+"
+"Plug - vim-go
+
+

@@ -1,0 +1,1 @@
+/home/komikun/.vim/plugged/gocode/vim/autoload/gocomplete.vim
