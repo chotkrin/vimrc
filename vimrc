@@ -9,7 +9,7 @@ let mapleader=" "
 syntax on
 
 " left 5 lines below
-set scrolloff=5
+set scrolloff=9
 
 " show relative line number
 set relativenumber
@@ -18,6 +18,9 @@ set relativenumber
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
+
+set encoding=utf-8
+set fileencoding=utf-8
 
 set nofoldenable
 
@@ -282,7 +285,7 @@ let g:mkdp_open_to_the_world = 1
 " useful when you work in remote vim and preview on local browser
 " more detail see: https://github.com/iamcco/markdown-preview.nvim/pull/9
 " default empty
-let g:mkdp_open_ip = '127.0.0.1'
+let g:mkdp_open_ip = '47.102.223.192'
 
 " specify browser to open preview page
 " default: ''
@@ -473,6 +476,9 @@ set undodir=~/.vim/undo
 let &t_SI.="\e[5 q" "SI = INSERT mode
 let &t_SR.="\e[4 q" "SR = REPLACE mode
 let &t_EI.="\e[1 q" "EI = NORMAL mode (ELSE)
+"let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+"let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+"let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 " plug - Coc
 
 let g:coc_global_extensions = ['coc-sql', 'coc-go', 'coc-tsserver', 'coc-json', 'coc-vimlsp', 'coc-python',  'coc-html', 'coc-marketplace', 'coc-snippets']
@@ -483,6 +489,9 @@ let g:coc_global_extensions = ['coc-sql', 'coc-go', 'coc-tsserver', 'coc-json', 
 set updatetime=100
 
 set shortmess+=c
+autocmd FileType go nmap gtj :CocCommand go.tags.add json<cr>
+autocmd FileType go nmap gty :CocCommand go.tags.add yaml<cr>
+autocmd FileType go nmap gtx :CocCommand go.tags.clear<cr>
 
 
 inoremap <silent><expr> <TAB>
