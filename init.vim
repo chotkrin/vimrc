@@ -146,34 +146,72 @@ let NERDTreeAutoDeleteBuffer=1
 
 " compile and run
 map <F5> :call CompileRunGcc()<CR>
+"func! CompileRunGcc()
+	"exec "w"
+	"if &filetype == 'c'
+		"exec "!g++ % -o %<"
+		"exec "!time ./%<"
+	"elseif &filetype == 'cpp'
+		"set splitbelow
+		"exec "!g++ -std=c++11 % -Wall -o %<"
+		":sp
+		":term ./%<
+	"elseif &filetype == 'java'
+		"exec "!javac %"
+		"exec "!time java %<"
+	"elseif &filetype == 'sh'
+		":!time bash %
+	"elseif &filetype == 'python'
+		""exec  "!clear"
+		""exec  "!time python3 %"
+		"exec "set splitbelow"
+		"exec ":term python3 %"
+	"elseif &filetype == 'html'
+		"exec "!chromium % &"
+	"elseif &filetype == 'go'
+		""exec "!clear"
+		""exec ":GoRun"
+		"exec "set splitbelow"
+		
+		"exec ":term go run %"
+	"elseif &filetype == 'scala'
+		"exec "!scalac %"
+		"exec "!time scala %<"
+	"endif
+"endfunc
 func! CompileRunGcc()
 	exec "w"
 	if &filetype == 'c'
 		exec "!g++ % -o %<"
 		exec "!time ./%<"
 	elseif &filetype == 'cpp'
-		exec "!g++ % -o %<"
-		exec "!time ./%<"
+		set splitbelow
+		exec "!g++ -std=c++11 % -Wall -o %<"
+		:sp
+		:term ./%<
 	elseif &filetype == 'java'
-		exec "!javac %"
-		exec "!time java %<"
+		set splitbelow
+		:sp
+		:res -5
+		term javac % && time java %<
 	elseif &filetype == 'sh'
 		:!time bash %
 	elseif &filetype == 'python'
-		"exec  "!clear"
-		"exec  "!time python3 %"
-		exec "set splitbelow"
-		exec ":term python3 %"
+		set splitbelow
+		:sp
+		:term python3 %
 	elseif &filetype == 'html'
-		exec "!chromium % &"
+		silent! exec "!".g:mkdp_browser." % &"
+	elseif &filetype == 'markdown'
+		exec "InstantMarkdownPreview"
+	elseif &filetype == 'javascript'
+		set splitbelow
+		:sp
+		:term export DEBUG="INFO,ERROR,WARNING"; node --trace-warnings .
 	elseif &filetype == 'go'
-		"exec "!clear"
-		"exec ":GoRun"
-		exec "set splitbelow"
-		exec ":term go run %"
-	elseif &filetype == 'scala'
-		exec "!scalac %"
-		exec "!time scala %<"
+		set splitbelow
+		:sp
+		:term go run .
 	endif
 endfunc
 
@@ -285,7 +323,7 @@ let g:mkdp_open_to_the_world = 1
 " useful when you work in remote vim and preview on local browser
 " more detail see: https://github.com/iamcco/markdown-preview.nvim/pull/9
 " default empty
-let g:mkdp_open_ip = '47.102.223.192'
+let g:mkdp_open_ip = ''
 
 " specify browser to open preview page
 " default: ''
@@ -548,5 +586,6 @@ let g:coc_snippet_prev = '<c-h>'
 "imap <C-j> <Plug>(coc-snippets-expand-jump)
 "
 "Plug - vim-go
+let g:go_def_mode = 'gopls'
 
 
