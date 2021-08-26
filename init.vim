@@ -72,6 +72,10 @@ map tn : tabnext<CR>
 map tb : -tabnext<CR>
 map tp : r !scs.sh -s /home/komikun/Pictures/screenshoots/<CR>
 
+noremap <PAGEUP> 20k
+noremap <PAGEDOWN> 20j
+
+
 " Plugs
 call plug#begin('~/.vim/plugged')
 
@@ -94,7 +98,7 @@ Plug 'godlygeek/tabular'                                                  " text
 Plug 'scrooloose/nerdtree'                                                " file catalog
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'Valloric/YouCompleteMe'                                             " auto complete
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } } " preview markdown
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  } " preview markdown
 Plug 'mzlogin/vim-markdown-toc'                                           " highlight markdown
 Plug 'SirVer/ultisnips'                                                   " complete snips
 Plug 'honza/vim-snippets'
@@ -108,11 +112,17 @@ Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'nsf/gocode', {'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh'}
+
+
+Plug 'tpope/vim-surround'
 "python
 "jupyter
 Plug 'hisaknown/jupyterkernel.vim'
 Plug 'diepm/vim-rest-console'
 Plug 'lilydjwg/colorizer'
+
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
 call plug#end()
 " Reopen
 if has("autocmd")
@@ -125,7 +135,7 @@ nnoremap <LEADER>u :UndotreeToggle<CR>
 " plug - snazzy
 colorscheme miramare
 "set background=dark
-let g:python3_host_prog = '/usr/bin/python3'
+let g:python3_host_prog = '/usr/local/bin/python3'
 " python setting
 let python_highlight_all=1
 au Filetype python set tabstop=4
@@ -296,12 +306,12 @@ nnoremap <Leader>jd :YcmCompleter GoToDefinition<CR>
 " Plug - markdown-preview
 " set to 1, nvim will open the preview window after entering the markdown buffer
 " default: 0
-let g:mkdp_auto_start = 0
+let g:mkdp_auto_start = 1 
 
 " set to 1, the nvim will auto close current preview window when change
 " from markdown buffer to another buffer
 " default: 1
-let g:mkdp_auto_close = 0
+let g:mkdp_auto_close = 1 
 
 " set to 1, the vim will refresh markdown when save the buffer or
 " leave from insert mode, default 0 is auto refresh markdown as you edit or
@@ -312,12 +322,12 @@ let g:mkdp_refresh_slow = 0
 " set to 1, the MarkdownPreview command ckkfan be use for all files,
 " by default it can be use in markdown file
 " default: 0
-let g:mkdp_command_for_global = 1
+let g:mkdp_command_for_global = 0 
 
 " set to 1, preview server available to others in your network
 " by default, the server listens on localhost (127.0.0.1)
 " default: 0
-let g:mkdp_open_to_the_world = 1 
+let g:mkdp_open_to_the_world = 0 
 
 " use custom IP to open preview page
 " useful when you work in remote vim and preview on local browser
@@ -560,6 +570,9 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+" Use <LEADER>s to enable multi cursor
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
 	if (index(['vim','help'], &filetype) >= 0)
 		execute 'h '.expand('<cword>')
@@ -587,5 +600,11 @@ let g:coc_snippet_prev = '<c-h>'
 "
 "Plug - vim-go
 let g:go_def_mode = 'gopls'
+
+" Fzf
+map <leader>f :Files<CR>
+map <leader>b :Buffers<CR>
+let g:fzf_action = { 'ctrl-e': 'edit' }
+nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
 
 
