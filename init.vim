@@ -123,6 +123,8 @@ Plug 'lilydjwg/colorizer'
 
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
+
+Plug 'tpope/vim-fugitive'
 call plug#end()
 " Reopen
 if has("autocmd")
