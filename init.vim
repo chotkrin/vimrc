@@ -8,7 +8,7 @@ let mapleader=" "
 " support syntax hightlight
 syntax on
 
-" left 5 lines below
+" left lines below
 set scrolloff=9
 
 " show relative line number
@@ -18,12 +18,9 @@ set relativenumber
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-
 set encoding=utf-8
 set fileencoding=utf-8
-
 set nofoldenable
-
 set completeopt=noinsert
 set smartindent
 set backspace=indent,eol,start
@@ -33,10 +30,8 @@ set cursorline
 set wrap
 set showcmd
 set wildmenu
-
 " highlight search result
 set hlsearch
-exec "nohlsearch"
 set incsearch
 set ignorecase
 set smartcase
@@ -70,34 +65,21 @@ map P  : vertical resize+5<CR>
 map tu : tabe<CR>
 map tn : tabnext<CR>
 map tb : -tabnext<CR>
-map tp : r !scs.sh -s /home/komikun/Pictures/screenshoots/<CR>
-
-noremap <PAGEUP> 20k
-noremap <PAGEDOWN> 20j
-
+map tp : noh<CR>
 
 " Plugs
 call plug#begin('~/.vim/plugged')
 
 " themes
-"Plug 'ajmwagar/vim-deus'
-"Plug 'morhetz/gruvbox'
-"Plug 'connorholyday/vim-snazzy'
 Plug 'franbach/miramare'
-
-
-
 " beautify
 Plug 'vim-airline/vim-airline'
 Plug 'kien/rainbow_parentheses.vim'
-"Plug 'vim-airline/vim-airline-themes'
-
 
 " additional functions
 Plug 'godlygeek/tabular'                                                  " text aligning
 Plug 'scrooloose/nerdtree'                                                " file catalog
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"Plug 'Valloric/YouCompleteMe'                                             " auto complete
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  } " preview markdown
 Plug 'mzlogin/vim-markdown-toc'                                           " highlight markdown
 Plug 'SirVer/ultisnips'                                                   " complete snips
@@ -105,25 +87,21 @@ Plug 'honza/vim-snippets'
 Plug 'flazz/vim-colorschemes'
 Plug 'preservim/nerdcommenter'												" quickly  (un)comment
 Plug 'Chiel92/vim-autoformat'
-"Plug 'w0rp/ale'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'kshenoy/vim-signature'
 Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'nsf/gocode', {'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh'}
-
+Plug 'diepm/vim-rest-console'
 
 Plug 'tpope/vim-surround'
 "python
-"jupyter
 Plug 'hisaknown/jupyterkernel.vim'
 Plug 'diepm/vim-rest-console'
 Plug 'lilydjwg/colorizer'
 
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-
 
 Plug 'tpope/vim-fugitive'
 call plug#end()
@@ -133,7 +111,6 @@ if has("autocmd")
 endif
 
 "plug - undotree
-
 nnoremap <LEADER>u :UndotreeToggle<CR>
 " plug - snazzy
 colorscheme miramare
@@ -159,39 +136,6 @@ let NERDTreeAutoDeleteBuffer=1
 
 " compile and run
 map <F5> :call CompileRunGcc()<CR>
-"func! CompileRunGcc()
-	"exec "w"
-	"if &filetype == 'c'
-		"exec "!g++ % -o %<"
-		"exec "!time ./%<"
-	"elseif &filetype == 'cpp'
-		"set splitbelow
-		"exec "!g++ -std=c++11 % -Wall -o %<"
-		":sp
-		":term ./%<
-	"elseif &filetype == 'java'
-		"exec "!javac %"
-		"exec "!time java %<"
-	"elseif &filetype == 'sh'
-		":!time bash %
-	"elseif &filetype == 'python'
-		""exec  "!clear"
-		""exec  "!time python3 %"
-		"exec "set splitbelow"
-		"exec ":term python3 %"
-	"elseif &filetype == 'html'
-		"exec "!chromium % &"
-	"elseif &filetype == 'go'
-		""exec "!clear"
-		""exec ":GoRun"
-		"exec "set splitbelow"
-		
-		"exec ":term go run %"
-	"elseif &filetype == 'scala'
-		"exec "!scalac %"
-		"exec "!time scala %<"
-	"endif
-"endfunc
 func! CompileRunGcc()
 	exec "w"
 	if &filetype == 'c'
@@ -225,6 +169,10 @@ func! CompileRunGcc()
 		set splitbelow
 		:sp
 		:term go run .
+	elseif &filetype == 'rust'
+		set splitbelow
+		:sp
+		:term cargo run .
 	endif
 endfunc
 
@@ -253,57 +201,6 @@ au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
-
-" plug - ALE
-let g:ale_sign_column_always = 1
-let g:ale_set_highlights = 0
-let g:airline#extensions#ale#enabled = 1
-"自定义error和warning图标
-let g:ale_sign_error = '✗'
-let g:ale_sign_warning = '⚠'
-" 显示Linter名称,出错或警告等相关信息
-let g:ale_echo_msg_error_str = 'Error'
-let g:ale_echo_msg_warning_str = 'Warning'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-" 普通模式下，sp前往上一个错误或警告，sn前往下一个错误或警告
-nmap sp <Plug>(ale_previous_wrap)
-nmap sn <Plug>(ale_next_wrap)
-" 触发/关闭语法检查
-nmap <Leader>at :ALEToggle<CR>
-" 查看错误或警告的详细信息
-nmap <Leader>ad :ALEDetail<CR>
-"使用clang对c和c++进行语法检查，对python使用pylint进行语法检查
-let g:ale_linters = {
-			\   'c++': ['clang'],
-			\   'c': ['clang'],
-			\   'python': ['pylint'],
-			\}
-" }}}
-let g:ale_fix_on_save = 1
-let g:ale_completion_enabled = 1
-let g:ale_sign_column_always = 1
-let g:airline#extensions#ale#enabled = 1
-
-
-" plug - YouCompleteMe
-let g:ycm_semantic_triggers =  {
-			\ 'c,cpp,java,python,go,erlang,perl': ['re!\w{2}'],
-			\ 'cs,lua,javascript': ['re!\w{2}'],
-			\ }
-highlight PMenu ctermfg=0 ctermbg=255 guifg=black guibg=Grey93
-highlight PMenuSel ctermfg=255 ctermbg=0 guifg=Grey93 guibg=black
-let g:ycm_add_preview_to_completeopt = 0
-let g:ycm_key_list_stop_completion = ['<CR>']
-let g:ycm_filetype_whitelist = {
-			\ "c":1,
-			\ "cpp":1,
-			\ "sh":1,
-			\ "python":1,
-			\ "zsh":1,
-			\ "zimbu":1,
-			\ }
-nnoremap <Leader>jc :YcmCompleter GoToDeclaration<CR>
-nnoremap <Leader>jd :YcmCompleter GoToDefinition<CR>
 
 
 " Plug - markdown-preview
@@ -407,61 +304,6 @@ let g:UltiSnipsJumpBackwardTrigger = '<c-h>'
 "设置打开配置文件时为垂直打开
 let g:UltiSnipsEditSplit="vertical"
 
-" setting - ranger
-
-function! RangeChooser()
-	let temp = tempname()
-	if has("gui_running")
-		exec 'silent !xterm -e ranger --choosefiles=' . shellescape(temp)
-	else
-		exec 'silent !ranger --choosefiles=' . shellescape(temp)
-	endif
-	if !filereadable(temp)
-		redraw!
-		return
-	endif
-	let names = readfile(temp)
-	if empty(names)
-		redraw!
-		return
-	endif
-	exec 'edit ' . fnameescape(names[0])
-	for name in names[1:]
-		exec 'argadd ' . fnameescape(name)
-	endfor
-	redraw!
-endfunction
-command! -bar RangerChooser call RangeChooser()
-nnoremap <leader>r :<c-u>RangerChooser<CR>
-
-" plug - syntastic
-
-"noremap <Leader>q :lclose<CR>
-
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-
-"let g:syntastic_always_populate_loc_list = 0
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 0
-"let g:syntastic_check_on_wq = 0
-"let g:syntastic_enable_signs = 1
-"let g:syntastic_error_symbol = '✗'
-"let g:syntastic_warning_symbol='►'
-"let g:syntastic_enable_highlighting=1
-"let g:syntastic_python_checkers = ['pyflakes']
-
-" plug - autoformat
-noremap <F6> :Autoformat<CR>
-
-let g:autoformat_autoindent = 0
-let g:autoformat_retab = 0
-let g:autoformat_remove_trailing_spaces = 0
-
-" plug - flake8
-"noremap <LEADER>u :call flake8#Flake8UnplaceMarkers()
-
 
 " plug - indent guides
 let g:indent_guides_enable_on_vim_startup=1
@@ -542,6 +384,7 @@ set updatetime=100
 set shortmess+=c
 autocmd FileType go nmap gtj :CocCommand go.tags.add json<cr>
 autocmd FileType go nmap gty :CocCommand go.tags.add yaml<cr>
+autocmd FileType go nmap gti :CocCommand go.tags.add ini<cr>
 autocmd FileType go nmap gtx :CocCommand go.tags.clear<cr>
 
 
@@ -606,8 +449,40 @@ let g:go_def_mode = 'gopls'
 
 " Fzf
 map <leader>f :Files<CR>
-map <leader>b :Buffers<CR>
 let g:fzf_action = { 'ctrl-e': 'edit' }
 nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
+
+" Format json
+command! Jsonf :execute '%!jq .'
+command! Pf :execute 'CocCommand prettier.formatFile'
+
+" Go tags
+let g:tagbar_type_go = {
+	\ 'ctagstype' : 'go',
+	\ 'kinds'     : [
+		\ 'p:package',
+		\ 'i:imports:1',
+		\ 'c:constants',
+		\ 'v:variables',
+		\ 't:types',
+		\ 'n:interfaces',
+		\ 'w:fields',
+		\ 'e:embedded',
+		\ 'm:methods',
+		\ 'r:constructor',
+		\ 'f:functions'
+	\ ],
+	\ 'sro' : '.',
+	\ 'kind2scope' : {
+		\ 't' : 'ctype',
+		\ 'n' : 'ntype'
+	\ },
+	\ 'scope2kind' : {
+		\ 'ctype' : 't',
+		\ 'ntype' : 'n'
+	\ },
+	\ 'ctagsbin'  : 'gotags',
+	\ 'ctagsargs' : '-sort -silent'
+\ }
 
 

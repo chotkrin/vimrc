@@ -1,4 +1,11 @@
 {
   "coc.preferences.extensionUpdateCheck": "daily",
-  "python.jediEnabled": true 
+  "python.jediEnabled": true,
+  "tsserver.enableJavascript": true,
+  "javascript.validate.enable": false,
+  "prettier.singleQuote": true,
+  "coc.preferences.formatOnSaveFiletypes":[
+	  "rust"
+  ],
+  "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/12.0.1/clangd_12.0.1/bin/clangd"
 }
