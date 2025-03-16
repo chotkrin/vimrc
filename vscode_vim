@@ -1,0 +1,41 @@
+" @author: KoyomiKun
+
+" Basic setting
+
+" set <tab>
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set encoding=utf-8
+set fileencoding=utf-8
+set nofoldenable
+set completeopt=noinsert
+set smartindent
+set backspace=indent,eol,start
+set nocompatible
+set number
+set cursorline
+set wrap
+set showcmd
+set wildmenu
+" highlight search result
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+" Key Mapper
+map S  : w<CR>
+map Q  : q<CR>
+map s  : <nop><CR>
+map sd : vsplit<CR>
+map <LEADER><RIGHT> <C-w>l
+map <LEADER><LEFT> <C-w>h
+map <LEADER><DOWN> <C-w>j
+map <LEADER><UP> <C-w>k
+map == $
+map -- 0
+map tu : tabe<CR>
+map tn : tabnext<CR>
+map tb : -tabnext<CR>
+map tp : noh<CR>
